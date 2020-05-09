@@ -1,0 +1,23 @@
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="/">首页</a>
+          <input type="text" class="inputs"/>
+          <span class="spanx">
+            <img src="/public/img/头像 (3).png"/>
+            {{ if user}}
+            <a class="blog-nav-item" href="#">{{ user.username }}已登录</a>
+            {{ else }}
+              <a class="blog-nav-item" href="/res">注册</a>
+              <a class="blog-nav-item" href="/login">登录</a>
+            {{ /if }}
+          </span>
+          <a class="blog-nav-item user" href="/user">
+            &nbsp&nbsp&nbsp&nbsp用户设置
+          </a>
+          <a class="blog-nav-item user" href="/loginout">退出</a>
+        </nav>
+      </div>
+
+    </div>
+

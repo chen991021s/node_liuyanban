@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/public/css/res.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+<!-- 
+  表单具有默认的提交行为，默认是同步 同步提交浏览器会锁死，
+  等待服务端的响应结果，结果都会响应给页面
+  当表单同步提交之后，无论服务端响应的什么，都会直接把响应结果覆盖掉当前页面
+-->
+    <div class="container">
+      <form class="form-signin" id="form-signin">
+        <h2 class="form-signin-heading">注册</h2>
+        <p id="userts"></p>
+        <label for="inputUsername" class="sr-only">User</label>
+        <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+        <label for="inputEmail" class="sr-only">email</label>
+        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required autofocus>
+        <p><a href="/login">已有账号，立即登录</a></p>
+        <button class="btn btn-lg btn-block btn-success" type="submit">注册</button>
+      </form>
+    </div> <!-- /container -->
+
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+      // 表单异步提交
+        $('#form-signin').on('submit',function(e){
+            //阻止默认事件的发生
+            e.preventDefault() 
+            //表单输入数据的结果
+            var formData = $(this).serialize()
+            $.ajax({
+                url:'/res',
+                type:'post',
+                data:formData,
+                dataType:'json',
+                success:function(data){
+                    var code = data.err_code
+                    if(code === 0){
+                      window.location.href='/'                     
+                    }else if(code === 1){
+                      document.getElementById('userts').innerHTML='用户名或密码已经存在'
+                      document.getElementById('userts').style.color='red'
+                      document.getElementById('userts').style.fontSize='20px'
+                      document.getElementById('userts').style.backgroundColor='rgb(241, 241, 153)'
+                    }else if(code === 500){
+                      window.alert('服务端错误，请稍后重试')
+                    }
+                }
+            })
+        })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+{{ extend '../layout/module.html' }}
+
+{{block 'content'}}
+
+<div id="big">
+    <div class="uli">
+        <ul class="ul">
+            <li class="li1">用户设置</li>
+            <li >基本信息</li>
+            <li>账户设置</li>
+        </ul>
+    </div>
+    
+    <div class="contents">
+        <div class="content1">
+            <div class="content1_1">
+                <form class="form">
+                    <input type="hidden"  name="password" value="1234">
+                    <div class="form-group">
+                      <label for="exampleInputName">用户名</label>
+                      <input type="text" class="form-control" id="exampleInputName" name="username" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">邮箱</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputjie">介绍</label>
+                        <textarea class="form-control" id="exampleInputjie" name="jie" placeholder="简单说明以下。。。。" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputpictrue">头像</label>
+                      <input type="file" id="exampleInputpictrue">
+                      <p class="help-block">Example block-level help text here.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputpictrue">性别</label><br/>
+                        <input type="radio" id="exampleInputpictrue" name="sex" value="0" checked="checked"/>男
+                        <input type="radio" id="exampleInputpictrue" name="sex" value="1"/>女
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputbithday">生日</label>
+                        <input type="date" id="exampleInputbithday" name="bithday" placeholder="生日"/>
+                    </div>
+                    <button type="submit" class="btn btn-success">保存</button>
+                  </form>
+                  
+            </div>
+            <div class="touxiang">
+                <img src="/public/img/头像4.png" />
+            </div>
+        </div>
+        <div class="content2">2</div>
+        <div class="content3">3</div>
+    </div>
+</div>
+
+{{/block}}
+
+{{block 'script'}}
+<script src="/node_modules/jquery/dist/jquery.js"></script>
+<script>
+    $(function(){
+        $('.content2').hide()
+        $('.content3').hide()
+        $(".uli>ul>li").each(function(index){
+            $(this).click(function(){
+                // alert(index)
+                //删除所有的class
+                $(".uli>ul>li").removeClass("li1")
+                //给当前点击的添加class
+                $(this).addClass("li1")
+                //隐藏所有
+                $(".contents>div").hide()
+                //显示对应的div
+                $(".contents>div:eq("+index+")").show();
+
+            })
+        })
+    })
+    $(function(){
+        // 表单异步提交
+        $('.form').on('submit',function(e){
+                //阻止默认事件的发生
+                e.preventDefault() 
+                //表单输入数据的结果
+                var formData = $(this).serialize()
+                console.log(formData)
+                $.ajax({
+                    url:'/usershe',
+                    type:'post',
+                    data:formData,
+                    dataType:'json',
+                    success:function(data){
+                        var code = data.err_code
+                        if(code === 0){
+                          window.location.href='/'                     
+                        }else if(code === 500){
+                          window.alert('服务端错误，请稍后重试')
+                        }
+                    }
+                })
+        })
+    })
+
+</script>
+{{/block}}

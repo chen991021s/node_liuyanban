@@ -1,0 +1,63 @@
+{{ extend '../layout/module.html' }}
+
+<!-- 样式 -->
+{{block 'head'}}
+<style>
+    body{
+        background-color: rgb(204, 204, 204);
+    }
+    .list-group-item{
+        padding-left: 10%;
+    }
+    .spans{
+        display: block;
+        margin-left: 29px;
+
+    }
+    .navs{
+        background-color: rgb(204, 204, 204);
+        text-align: center;
+    }
+</style>
+{{ /block}}
+
+<!-- 显示内容 -->
+{{ block 'content'}}
+<ul class="list-group">
+    <li class="list-group-item">     
+        <span>
+            <img src="/public/img/头像.png"/>
+            Dapibus<br/>
+            <span class="spans">Dapibus回复了问题.2人关注.1个回复.133次浏览.2019-10-21 13.43</span> 
+        </span>
+    </li>
+    {{each users}}
+    <li class="list-group-item">     
+    <span>
+        <img src="/public/img/头像.png"/>
+        {{ $value.username }}<br/>
+        <span class="spans"> {{ $value.username }}回复了问题.2人关注.1个回复.133次浏览.2019-10-21 13.43</span> 
+    </span>
+    </li>
+    {{/each}}   
+  </ul>
+  <nav aria-label="Page navigation" class="navs">
+    <ul class="pagination">
+      <li>
+        <a href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li>
+        <a href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+{{ /block }}

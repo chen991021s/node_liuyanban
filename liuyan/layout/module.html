@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>module</title>
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/public/css/header.css" rel="stylesheet">
+    <link href="/public/css/user.css" rel="stylesheet">
+    {{ block 'head'}}
+    
+    {{ /block }}
+</head>
+<body>
+    {{ include './header.html' }}
+    {{ block 'content' }}
+        <h1>默认模板内容</h1>
+    {{ /block }}
+    {{ include './footer.html' }}
+    {{block 'script' }}
+    <script src='/node_modules/jquery/dist/jquery.js'></script>
+    {{ /block }}
+</body>
+</html>

@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/public/css/login.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">登录</h2>
+        <p id="userts"></p>
+        <label for="inputUsername" class="sr-only">User</label>
+        <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Username" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+            <a href="/views/res.html" style="margin-left: 120px;">立即注册</a>
+          </label>
+        </div>
+        <button class="btn btn-lg btn-block btn-success" type="submit">登录</button>
+      </form>
+
+    </div> <!-- /container -->
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+      $('.form-signin').on('submit',function(e){
+       e.preventDefault()
+       var formDada = $(this).serialize()
+      //  console.log(formDada);
+       $.ajax({
+         url:'/login',
+         type:'post',
+         data:formDada,
+         dataType:'json',
+         success:function(data){
+           var err_code = data.err_code
+            if(err_code === 0){
+              window.location.href='/'
+            }else if(err_code === 1){
+              document.getElementById('userts').innerHTML='用户名或密码不存在，请重新登录或者注册'
+              document.getElementById('userts').style.color='red'
+              document.getElementById('userts').style.fontSize='20px'
+              document.getElementById('userts').style.backgroundColor='rgb(241, 241, 153)'
+            }else if(err_code === 500){
+              window.alert('服务端错误，请重试')
+            }
+         }
+       })
+     })
+    </script>
+
+  </body>
+</html>
